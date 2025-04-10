@@ -1,10 +1,22 @@
-import { Router } from "express";
-import { logout, signin, signup } from "../controllers/auth.controller";
+import express from "express";
+import {
+  checkAuth,
+  logout,
+  signin,
+  signup,
+  updateProfile,
+} from "../controllers/auth.controller";
+import { validate } from "../utils/validate";
+import { SigninSchema, SignupSchema } from "../schemas";
+import { isAuthenticated } from "../middlewares";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signin", signin);
+router.post("/signup", validate(SignupSchema), signup);
+router.post("/signin", validate(SigninSchema), signin);
 router.post("/logout", logout);
 
+router.put("/update-profile", isAuthenticated, updateProfile);
+
+router.get("/check", isAuthenticated, checkAuth);
 export default router;
