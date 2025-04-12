@@ -1,0 +1,12 @@
+{"level":30,"time":1744465959922,"pid":15008,"hostname":"rekasa","msg":"User logout"}
+{"level":30,"time":1744466219753,"pid":3472,"hostname":"rekasa","msg":"User logout"}
+{"level":30,"time":1744466226375,"pid":3472,"hostname":"rekasa","msg":"User logout"}
+{"level":30,"time":"2025-04-12T14:22:53.728Z","pid":3808,"hostname":"rekasa","msg":"User logout"}
+{"level":30,"time":"2025-04-12T14:25:13.215Z","pid":17840,"hostname":"rekasa","description":"User logout"}
+{"level":30,"time":"04/12/2025, 22:35:01","pid":2900,"hostname":"rekasa","description":"User logout"}
+{"level":40,"time":"04/12/2025, 22:38:52","pid":8592,"hostname":"rekasa","description":"Signin Validation error on part body"}
+{"level":40,"time":"04/12/2025, 22:39:07","pid":14744,"hostname":"rekasa","description":"Signin Validation error on part body"}
+{"level":40,"time":"04/12/2025, 22:44:58","pid":16848,"hostname":"rekasa","description":"Signin Validation error on part body"}
+{"level":30,"time":"04/12/2025, 22:47:31","pid":17952,"hostname":"rekasa","description":"Auth failed: No token provided"}
+{"level":40,"time":"04/12/2025, 22:49:33","pid":17812,"hostname":"rekasa","description":"Auth failed: No token provided"}
+{"level":40,"time":"04/12/2025, 10:50:03 PM","pid":7348,"hostname":"rekasa","description":"Auth failed: No token provided"}

@@ -12,9 +12,9 @@ import { isAuthenticated } from "../middlewares";
 
 const router = express.Router();
 
-router.post("/signup", validate(SignupSchema), signup);
-router.post("/signin", validate(SigninSchema), signin);
-router.post("/logout", logout);
+router.post("/signup", validate("Signup", SignupSchema), signup);
+router.post("/signin", validate("Signin", SigninSchema), signin);
+router.post("/logout", isAuthenticated, logout);
 
 router.put("/update-profile", isAuthenticated, updateProfile);
 
