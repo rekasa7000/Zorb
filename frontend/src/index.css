@@ -118,3 +118,149 @@
     @apply bg-background text-foreground;
   }
 }
+
+.spin-slow {
+  animation: spin 5s linear infinite;
+}
+.spin-slower {
+  animation: spin 6s linear infinite;
+}
+.spin-reverse-slow {
+  animation: spin-reverse 5s linear infinite;
+}
+.text-color {
+  animation: text-color 5s infinite alternate;
+}
+.fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+.fade-in-delay-100 {
+  animation: fade-in 0.5s ease-out 0.1s forwards;
+}
+.fade-in-delay-200 {
+  animation: fade-in 0.5s ease-out 0.2s forwards;
+}
+.fade-in-delay-300 {
+  animation: fade-in 0.5s ease-out 0.3s forwards;
+}
+.fade-in-delay-400 {
+  animation: fade-in 0.5s ease-out 0.4s forwards;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes text-color {
+  0% {
+    color: #10b981;
+  }
+  50% {
+    color: #8b5cf6;
+  }
+  100% {
+    color: #10b981;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+
+#stars,
+#stars::after {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow:
+    120px 2100px #fff,
+    340px 13400px #fff,
+    1880px 5700px #fff,
+    1230px 11400px #fff,
+    1450px 19400px #fff,
+    870px 12000px #fff;
+}
+
+#stars::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+}
+
+#stars2,
+#stars2::after {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    430px 9400px #fff,
+    890px 4700px #fff,
+    1500px 8800px #fff,
+    730px 12200px #fff,
+    1760px 16000px #fff;
+}
+
+#stars2::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+}
+
+#stars3,
+#stars3::after {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow:
+    640px 5400px #fff,
+    1780px 18000px #fff,
+    360px 12400px #fff;
+}
+
+#stars3::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+}
+
+#stars {
+  animation: animStar 50s linear infinite;
+}
+
+#stars2 {
+  animation: animStar 100s linear infinite;
+}
+
+#stars3 {
+  animation: animStar 150s linear infinite;
+}
