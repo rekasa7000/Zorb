@@ -19,9 +19,7 @@ const NavBar = () => {
   }, []);
 
   const logoScaleClass =
-    scrollPosition > 0
-      ? "scale-95 transition-transform duration-300"
-      : "scale-100 transition-transform duration-300";
+    scrollPosition > 0 ? "scale-95 transition-transform duration-300" : "scale-100 transition-transform duration-300";
 
   const isHomepage = location.pathname === "/";
 
@@ -31,18 +29,6 @@ const NavBar = () => {
         <div className={`flex items-center space-x-2 ${logoScaleClass}`}>
           <div className="h-8 w-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center relative">
             <Zap className="h-5 w-5 text-white" />
-
-            <div className="absolute inset-0 w-full h-full origin-center animate-spin-slow">
-              <div className="absolute w-2 h-2 rounded-full bg-yellow-300 -top-2 left-1/2 -translate-x-1/2"></div>
-            </div>
-
-            <div className="absolute inset-0 w-full h-full origin-center animate-spin-reverse-slow">
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-purple-300 -left-1.5 top-1/2 -translate-y-1/2"></div>
-            </div>
-
-            <div className="absolute inset-0 w-full h-full origin-center animate-spin-slower">
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-blue-300 -left-1 top-1/2 -translate-y-1/2"></div>
-            </div>
           </div>
           <span className="text-xl font-bold animate-text-color">Zorb</span>
         </div>
@@ -50,22 +36,13 @@ const NavBar = () => {
         {isMenuOpen && (
           <div className="md:hidden absolute z-20 top-16 inset-x-0 bg-gray-900/95 backdrop-blur-sm py-4 px-6 border-b border-gray-800 animate-fade-in">
             <div className="flex flex-col space-y-4">
-              <a
-                href="#features"
-                className="hover:text-green-400 transition py-2 animate-fade-in-delay-100"
-              >
+              <a href="#features" className="hover:text-green-400 transition py-2 animate-fade-in-delay-100">
                 Features
               </a>
-              <a
-                href="#about"
-                className="hover:text-green-400 transition py-2 animate-fade-in-delay-200"
-              >
+              <a href="#about" className="hover:text-green-400 transition py-2 animate-fade-in-delay-200">
                 About
               </a>
-              <a
-                href="#contact"
-                className="hover:text-green-400 transition py-2 animate-fade-in-delay-300"
-              >
+              <a href="#contact" className="hover:text-green-400 transition py-2 animate-fade-in-delay-300">
                 Contact
               </a>
               <Link
@@ -79,22 +56,13 @@ const NavBar = () => {
         )}
 
         <div className="hidden md:flex items-center space-x-8">
-          <a
-            className="hover:text-green-400 transition duration-300 hover:-translate-y-1"
-            href="#features"
-          >
+          <a className="hover:text-green-400 transition duration-300 hover:-translate-y-1" href="#features">
             Features
           </a>
-          <a
-            href="#about"
-            className="hover:text-green-400 transition duration-300 hover:-translate-y-1"
-          >
+          <a href="#about" className="hover:text-green-400 transition duration-300 hover:-translate-y-1">
             About
           </a>
-          <a
-            href="#contact"
-            className="hover:text-green-400 transition duration-300 hover:-translate-y-1"
-          >
+          <a href="#contact" className="hover:text-green-400 transition duration-300 hover:-translate-y-1">
             Contact
           </a>
           <Link
@@ -105,23 +73,13 @@ const NavBar = () => {
           </Link>
         </div>
 
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-white focus:outline-none"
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-white focus:outline-none">
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d={
-                isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
-              }
+              d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
             />
           </svg>
         </button>

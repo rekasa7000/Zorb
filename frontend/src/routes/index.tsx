@@ -1,13 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import {
-  Send,
-  ChevronRight,
-  Heart,
-  Linkedin,
-  Github,
-  Facebook,
-} from "lucide-react";
+import { Send, ChevronRight, Heart, Linkedin, Github, Facebook } from "lucide-react";
+export const Route = createFileRoute("/")({
+  component: Index,
+});
 
 const TypingText = (text: string) => {
   const [displayText, setDisplayText] = useState("");
@@ -42,10 +38,6 @@ const TypingText = (text: string) => {
   );
 };
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
 function Index() {
   return (
     <div className="h-full">
@@ -73,13 +65,9 @@ function Index() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-green-400 inline-block hover:scale-105 transition-transform">
-                Matcha
-              </span>{" "}
+              <span className="text-green-400 inline-block hover:scale-105 transition-transform">Matcha</span>{" "}
               <span>Meets the</span>{" "}
-              <span className="text-purple-400 inline-block hover:scale-105 transition-transform">
-                Cosmos
-              </span>
+              <span className="text-purple-400 inline-block hover:scale-105 transition-transform">Cosmos</span>
             </h1>
             <p className="mt-2 text-gray-300 text-lg md:text-xl">
               {TypingText("Experience chat in a new dimension with Zorb.")}
@@ -112,28 +100,21 @@ function Index() {
                   <div className="flex items-start">
                     <div className="h-8 w-8 rounded-full bg-purple-600 flex-shrink-0 hover:scale-110 transition-transform" />
                     <div className="ml-3 bg-gray-700 rounded-lg p-3 rounded-tl-none max-w-xs">
-                      <p className="text-sm">
-                        Have you tried the new galaxy theme?
-                      </p>
+                      <p className="text-sm">Have you tried the new galaxy theme?</p>
                     </div>
                   </div>
 
                   <div className="flex items-start flex-row-reverse">
                     <div className="h-8 w-8 rounded-full bg-green-600 flex-shrink-0 hover:scale-110 transition-transform" />
                     <div className="mr-3 bg-green-600/30 rounded-lg p-3 rounded-tr-none max-w-xs">
-                      <p className="text-sm">
-                        Yes! I love how it shows actual constellations as you
-                        type!
-                      </p>
+                      <p className="text-sm">Yes! I love how it shows actual constellations as you type!</p>
                     </div>
                   </div>
 
                   <div className="flex items-start">
                     <div className="h-8 w-8 rounded-full bg-purple-600 flex-shrink-0 hover:scale-110 transition-transform" />
                     <div className="ml-3 bg-gray-700 rounded-lg p-3 rounded-tl-none max-w-xs">
-                      <p className="text-sm">
-                        The matcha zen mode is perfect for focus time too.
-                      </p>
+                      <p className="text-sm">The matcha zen mode is perfect for focus time too.</p>
                     </div>
                   </div>
                 </div>
@@ -159,12 +140,10 @@ function Index() {
         <div className="relative">
           <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-green-500/30 to-purple-500/30 blur-xl" />
           <div className="relative bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Ready to Join the Cosmic Conversation?
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Join the Cosmic Conversation?</h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              Launch into a new era of communication where the calm focus of
-              matcha meets the endless wonder of the cosmos.
+              Launch into a new era of communication where the calm focus of matcha meets the endless wonder of the
+              cosmos.
             </p>
             <button className="bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-3 rounded-full font-medium text-lg hover:shadow-lg hover:shadow-green-500/30 transition relative overflow-hidden hover:scale-105 active:scale-95">
               <span className="relative z-10">Get Started</span>
@@ -181,22 +160,13 @@ function Index() {
               Made with <Heart className="text-red-500" /> by Rekasa
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-green-400 transition"
-              >
+              <a href="#" className="text-gray-400 hover:text-green-400 transition">
                 <Linkedin />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-green-400 transition"
-              >
+              <a href="#" className="text-gray-400 hover:text-green-400 transition">
                 <Github />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-green-400 transition"
-              >
+              <a href="#" className="text-gray-400 hover:text-green-400 transition">
                 <Facebook />
               </a>
             </div>
