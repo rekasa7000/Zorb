@@ -4,7 +4,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 function RootLayout() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-zinc-900 to-gray-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-zinc-900 to-gray-900 text-white relative">
       <NavBar />
       <TanStackRouterDevtools />
       <Outlet />
