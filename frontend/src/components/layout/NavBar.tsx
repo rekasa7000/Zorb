@@ -1,11 +1,16 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Settings, Zap } from "lucide-react";
+import { Settings, Zap, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useLogout } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const location = useLocation();
+  const { user, isAuthenticated } = useAuthStore();
+  const logoutMutation = useLogout();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +27,10 @@ const NavBar = () => {
     scrollPosition > 0 ? "scale-95 transition-transform duration-300" : "scale-100 transition-transform duration-300";
 
   const isHomepage = location.pathname === "/";
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   if (isHomepage) {
     return (
@@ -65,12 +74,36 @@ const NavBar = () => {
           <a href="#contact" className="hover:text-green-400 transition duration-300 hover:-translate-y-1">
             Contact
           </a>
-          <Link
-            to="/signin"
-            className="bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-green-500/30 transition"
-          >
-            Sign in
-          </Link>
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-4">
+              <span className="text-sm">Welcome, {user?.firstName}</span>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="border-green-500 text-green-500 hover:bg-green-500 hover:text-white"
+                disabled={logoutMutation.isPending}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                {logoutMutation.isPending ? "Logging out..." : "Logout"}
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-2">
+              <Link
+                to="/signin"
+                className="text-green-400 hover:text-green-300 transition duration-300 hover:-translate-y-1"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-green-500/30 transition"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
 
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-white focus:outline-none">
@@ -89,14 +122,53 @@ const NavBar = () => {
 
   return (
     <nav className="relative z-10 px-6 py-5 flex justify-between items-center">
-      <div className="flex items-center space-x-2">
+      <Link to="/" className="flex items-center space-x-2">
         <div className="h-8 w-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center">
           <Zap className="h-5 w-5 text-white" />
         </div>
         <span className="text-xl font-bold">Zorb</span>
-      </div>
-      <div className="hidden md:flex items-center space-x-8 gap-2">
-        <Settings /> Settings
+      </Link>
+      <div className="hidden md:flex items-center space-x-8 gap-4">
+        {isAuthenticated ? (
+          <>
+            <Link to="/profile" className="hover:text-green-400 transition duration-300 flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Profile
+            </Link>
+            <Link to="/settings" className="hover:text-green-400 transition duration-300 flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Settings
+            </Link>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm">Welcome, {user?.firstName}</span>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="border-green-500 text-green-500 hover:bg-green-500 hover:text-white"
+                disabled={logoutMutation.isPending}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                {logoutMutation.isPending ? "Logging out..." : "Logout"}
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center space-x-2">
+            <Link
+              to="/signin"
+              className="text-green-400 hover:text-green-300 transition duration-300"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-green-500/30 transition"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );

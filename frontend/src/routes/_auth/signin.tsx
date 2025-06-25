@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Zap } from "lucide-react";
+import { useLogin } from "@/hooks/useAuth";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/_auth/signin")({
   component: RouteComponent,
@@ -17,6 +19,9 @@ const formSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 function RouteComponent() {
+  const navigate = useNavigate();
+  const loginMutation = useLogin();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -26,8 +31,14 @@ function RouteComponent() {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    loginMutation.mutate(data);
   };
+
+  useEffect(() => {
+    if (loginMutation.isSuccess) {
+      navigate({ to: "/" });
+    }
+  }, [loginMutation.isSuccess, navigate]);
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center">
@@ -73,9 +84,18 @@ function RouteComponent() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="mt-4 w-full">
-              Continue with Email
+            <Button 
+              type="submit" 
+              className="mt-4 w-full"
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? "Signing In..." : "Continue with Email"}
             </Button>
+            {loginMutation.isError && (
+              <p className="text-red-500 text-sm text-center">
+                {loginMutation.error?.message || "An error occurred during signin"}
+              </p>
+            )}
           </form>
         </Form>
         <div className="mt-5 space-y-5">
@@ -84,9 +104,9 @@ function RouteComponent() {
           </a>
           <p className="text-sm text-center">
             Don&apos;t have an account?
-            <a href="#" className="ml-1 underline text-muted-foreground">
+            <Link to="/signup" className="ml-1 underline text-muted-foreground hover:text-green-400">
               Create account
-            </a>
+            </Link>
           </p>
         </div>
       </div>

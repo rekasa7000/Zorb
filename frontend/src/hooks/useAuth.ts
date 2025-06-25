@@ -9,11 +9,15 @@ export const useCheckAuth = () => {
   return useQuery({
     queryKey: ["auth"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get<{ data: User }>("/auth/verify");
-      return data.data;
+      try {
+        const { data } = await axiosInstance.get<{ data: User }>("/auth/check");
+        setUser(data.data);
+        return data.data;
+      } catch (error) {
+        setUser(null);
+        throw error;
+      }
     },
-    onSuccess: (user: User) => setUser(user),
-    onError: () => setUser(null),
     retry: false,
     staleTime: 1000 * 60 * 5,
   });
@@ -24,10 +28,12 @@ export const useLogin = () => {
   const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
-    mutationFn: (credentials: { email: string; password: string }) =>
-      axiosInstance.post<{ data: User }>("/auth/login", credentials),
-    onSuccess: (response) => {
-      setUser(response.data.data);
+    mutationFn: async (credentials: { email: string; password: string }) => {
+      const response = await axiosInstance.post<{ data: User }>("/auth/signin", credentials);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      setUser(data.data);
       queryClient.invalidateQueries({ queryKey: ["auth"] });
     },
   });
@@ -38,13 +44,29 @@ export const useLogout = () => {
   const logout = useAuthStore((state) => state.logout);
 
   return useMutation({
-    mutationFn: ():({message: string}) => {
-      const response = axiosInstance.post("/auth/logout");
-      return response;
+    mutationFn: async () => {
+      const response = await axiosInstance.post("/auth/logout");
+      return response.data;
     },
     onSuccess: () => {
       logout();
       queryClient.clear();
+    },
+  });
+};
+
+export const useSignup = () => {
+  const queryClient = useQueryClient();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  return useMutation({
+    mutationFn: async (userData: { firstName: string; lastName?: string; email: string; password: string }) => {
+      const response = await axiosInstance.post<{ data: User }>("/auth/signup", userData);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      setUser(data.data);
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
     },
   });
 };

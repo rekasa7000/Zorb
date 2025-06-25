@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -7,19 +7,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Zap } from "lucide-react";
+import { useSignup } from "@/hooks/useAuth";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/_auth/signup")({
   component: RouteComponent,
 });
 
 const formSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().optional(),
   email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+  const signupMutation = useSignup();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
     },
@@ -27,8 +36,14 @@ function RouteComponent() {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    signupMutation.mutate(data);
   };
+
+  useEffect(() => {
+    if (signupMutation.isSuccess) {
+      navigate({ to: "/" });
+    }
+  }, [signupMutation.isSuccess, navigate]);
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center">
@@ -48,6 +63,32 @@ function RouteComponent() {
         </div>
         <Form {...form}>
           <form className="w-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="First Name" className="w-full" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name (Optional)</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="Last Name" className="w-full" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -74,16 +115,25 @@ function RouteComponent() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="mt-4 w-full">
-              Continue with Email
+            <Button 
+              type="submit" 
+              className="mt-4 w-full" 
+              disabled={signupMutation.isPending}
+            >
+              {signupMutation.isPending ? "Creating Account..." : "Continue with Email"}
             </Button>
+            {signupMutation.isError && (
+              <p className="text-red-500 text-sm text-center">
+                {signupMutation.error?.message || "An error occurred during signup"}
+              </p>
+            )}
           </form>
         </Form>
         <p className="mt-5 text-sm text-center">
           Already have an account?
-          <a href="#" className="ml-1 underline text-muted-foreground">
+          <Link to="/signin" className="ml-1 underline text-muted-foreground hover:text-green-400">
             Log in
-          </a>
+          </Link>
         </p>
       </div>
     </div>
