@@ -4,13 +4,13 @@ A modern full-stack application with authentication built using React, TypeScrip
 
 ## Features
 
-- 🔐 **Authentication System**
+- **Authentication System**
   - User registration and login
   - JWT-based authentication with HTTP-only cookies
   - Protected routes with automatic redirects
   - Password hashing with bcrypt
   
-- ⚛️ **Frontend**
+- **Frontend**
   - React 19 with TypeScript
   - TanStack Router for routing with route guards
   - TanStack Query for state management and API calls
@@ -18,7 +18,7 @@ A modern full-stack application with authentication built using React, TypeScrip
   - Form validation with Zod and React Hook Form
   - Zustand for client-side state management
 
-- 🚀 **Backend**
+- **Backend**
   - Node.js with Express
   - MongoDB with Mongoose
   - JWT authentication
@@ -60,7 +60,7 @@ A modern full-stack application with authentication built using React, TypeScrip
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/rekasa7000/Zorb.git
 cd zorb
 ```
 
